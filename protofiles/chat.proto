@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package protofiles;
+option go_package = "protofiles/chat";
+
+service ChatService{
+  rpc Connect(ConnectRequest) returns (stream Message) {}
+  rpc JoinGroupChat(JoinGroupChatRequest) returns (JoinGroupChatResponse){}
+  rpc LeaveGroupChat(LeaveGroupChatRequest) returns (LeaveGroupChatResponse){}
+  rpc CreateGroupChat(CreateGroupChatRequest) returns (CreateGroupChatResponse){}
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse){}
+  rpc ListChannels(ListChannelsRequest) returns (ListChannelsResponse){}
+}
+
+message ConnectRequest {
+  string username = 1;
+}
+
+message Message {
+  string sender = 1;
+  string group = 2;
+  string message = 3;
+}
+
+message JoinGroupChatRequest {
+  string groupName = 1;
+}
+
+message JoinGroupChatResponse{}
+
+message LeaveGroupChatRequest{
+  string  groupName = 1;
+}
+message LeaveGroupChatResponse{}
+
+message CreateGroupChatRequest{
+  string  groupName = 1;
+}
+message CreateGroupChatResponse{}
+
+message SendMessageRequest{
+  string  channelName = 1;
+  string  username = 2;
+  string  message = 3;
+}
+message SendMessageResponse{}
+
+message ListChannelsRequest{}
+message Group{
+  string name = 1;
+  repeated string users = 2;
+}
+message ListChannelsResponse{
+  repeated Group group = 1;
+}
